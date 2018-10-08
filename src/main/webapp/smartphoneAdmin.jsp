@@ -37,6 +37,7 @@
             <main class="content">
                 <table>
                     <tr>
+                        <th>Марка</th>
                         <th>Модель</th>
                         <th>Цена, руб</th>
                         <th>Оперативная память, Гб</th>
@@ -50,6 +51,7 @@
                         <th>Количество SIM-карт</th>
                         <th>Размеры, В×Ш×Т</th>
                         <th>Цвет</th>
+                        <th>Количество на складе</th>
                     </tr>
 
                     <%
@@ -57,6 +59,8 @@
                         for (Smartphone i : smartphoneList) {
                     %>
                     <tr>
+                        <td align="left"><%=i.getBrand().getName()%>
+                        </td>
                         <td align="center"><%=i.getName()%>
                         </td>
                         <td align="center"><%=i.getPrice()%>
@@ -82,6 +86,8 @@
                         <td align="center"><%=i.getSize()%>
                         </td>
                         <td align="center"><%=i.getColor()%>
+                        </td>
+                        <td align="right"><%=i.getCount()%>
                         </td>
                     </tr>
                     <%
@@ -141,6 +147,8 @@
                     <input type="text" size="16" name="inserSize"><br>
                     <a>Цвет:</a><br>
                     <input type="text" size="16" name="inserColor"><br>
+                    <a>Количество на складе:</a><br>
+                    <input type="text" size="16" name="inserCount"><br>
                     <input type="submit" value="Добавить">
                 </form>
                 <br><a href="/admin/brand"><-назад</a>

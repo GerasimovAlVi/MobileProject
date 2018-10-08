@@ -21,7 +21,7 @@ public class SmartphoneServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Smartphone> smartphoneList = smartphoneService.getAllByBrand(Integer.parseInt(req.getParameter("id")));
+        List<Smartphone> smartphoneList = smartphoneService.getAllByBrandInStock(Integer.parseInt(req.getParameter("id")));
         req.setAttribute("smartphone", smartphoneList);
         req.getRequestDispatcher("/smartphone.jsp").forward(req, resp);
     }

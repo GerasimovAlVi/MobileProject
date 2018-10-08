@@ -39,6 +39,7 @@
                 %>
                 <table>
                     <tr>
+                        <th>Марка</th>
                         <th>Модель</th>
                         <th>Цена, руб</th>
                         <th>Оперативная память, Гб</th>
@@ -57,6 +58,8 @@
                     <% for (Smartphone i : smartphoneList) {%>
 
                     <tr>
+                        <td align="left"><%=i.getBrand().getName()%>
+                        </td>
                         <td align="center"><%=i.getName()%>
                         </td>
                         <td align="center"><%=i.getPrice()%>

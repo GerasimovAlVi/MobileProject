@@ -73,13 +73,13 @@ public class OrderDAOImpl implements OrderDAO {
                                 resultSet2.getInt(12),
                                 resultSet2.getDouble(13),
                                 new Brand(
-                                        resultSet2.getInt(16),
-                                        resultSet2.getString(17)
+                                        resultSet2.getInt(17),
+                                        resultSet2.getString(18)
                                 ),
                                 new Screen(
-                                        resultSet2.getInt(18),
-                                        resultSet2.getString(19)
-                                ));
+                                        resultSet2.getInt(19),
+                                        resultSet2.getString(20)
+                                ), resultSet2.getInt(16));
                         smartphoneList.add(smartphone);
                     }
                 }
@@ -264,13 +264,14 @@ public class OrderDAOImpl implements OrderDAO {
                                 resultSet2.getInt(12),
                                 resultSet2.getDouble(13),
                                 new Brand(
-                                        resultSet2.getInt(16),
-                                        resultSet2.getString(17)
+                                        resultSet2.getInt(17),
+                                        resultSet2.getString(18)
                                 ),
                                 new Screen(
-                                        resultSet2.getInt(18),
-                                        resultSet2.getString(19)
-                                ));
+                                        resultSet2.getInt(19),
+                                        resultSet2.getString(20)
+                                ),
+                                resultSet2.getInt(16));
                         smartphoneList.add(smartphone);
                     }
                 }
@@ -351,13 +352,14 @@ public class OrderDAOImpl implements OrderDAO {
                                 resultSet2.getInt(12),
                                 resultSet2.getDouble(13),
                                 new Brand(
-                                        resultSet2.getInt(16),
-                                        resultSet2.getString(17)
+                                        resultSet2.getInt(17),
+                                        resultSet2.getString(18)
                                 ),
                                 new Screen(
-                                        resultSet2.getInt(18),
-                                        resultSet2.getString(19)
-                                ));
+                                        resultSet2.getInt(19),
+                                        resultSet2.getString(20)
+                                ),
+                                resultSet2.getInt(16));
                         smartphoneList.add(smartphone);
                     }
                 }
@@ -437,13 +439,14 @@ public class OrderDAOImpl implements OrderDAO {
                                 resultSet2.getInt(12),
                                 resultSet2.getDouble(13),
                                 new Brand(
-                                        resultSet2.getInt(16),
-                                        resultSet2.getString(17)
+                                        resultSet2.getInt(17),
+                                        resultSet2.getString(18)
                                 ),
                                 new Screen(
-                                        resultSet2.getInt(18),
-                                        resultSet2.getString(19)
-                                ));
+                                        resultSet2.getInt(19),
+                                        resultSet2.getString(20)
+                                ),
+                                resultSet2.getInt(16));
                         smartphoneList.add(smartphone);
                     }
                 }
@@ -517,13 +520,14 @@ public class OrderDAOImpl implements OrderDAO {
                                 resultSet2.getInt(12),
                                 resultSet2.getDouble(13),
                                 new Brand(
-                                        resultSet2.getInt(16),
-                                        resultSet2.getString(17)
+                                        resultSet2.getInt(17),
+                                        resultSet2.getString(18)
                                 ),
                                 new Screen(
-                                        resultSet2.getInt(18),
-                                        resultSet2.getString(19)
-                                ));
+                                        resultSet2.getInt(19),
+                                        resultSet2.getString(20)
+                                ),
+                                resultSet2.getInt(16));
                         smartphoneList.add(smartphone);
                     }
                 }

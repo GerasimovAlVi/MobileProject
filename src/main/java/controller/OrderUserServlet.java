@@ -62,8 +62,21 @@ public class OrderUserServlet extends HttpServlet {
                 deliveryTypeService.getById(delivery),
                 paidTypeService.getById(paid),
                 receiveTypeService.getById(2));
-        if (!order.equals("")) {
-            orderService.add(order);
+        if (order != null) {
+            List<Smartphone> smartphoneList = order.getSmartphone();
+            boolean good = true;
+            for (Smartphone i : smartphoneList) {
+                if (i.getCount() == 0) {
+                    good = false;
+                    break;
+                }
+            }
+            if (good) {
+                orderService.add(order);
+                for (Smartphone i : smartphoneList) {
+                    smartphoneService.updateCountSubtract(i);
+                }
+            }
         }
         req.getRequestDispatcher("/orderStatus.jsp").forward(req, resp);
     }

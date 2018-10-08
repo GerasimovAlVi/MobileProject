@@ -13,8 +13,20 @@ public class SmartphoneService {
         return smartphoneDAO.getSmartphoneByBrandId(id);
     }
 
+    public List<Smartphone> getAllByBrandInStock(Integer id) {
+        return smartphoneDAO.getSmartphoneByBrandIdInStock(id);
+    }
+
     public Smartphone getById(int id) {
         return smartphoneDAO.getById(id);
+    }
+
+    public boolean updateCountSubtract(Smartphone smartphone) {
+        return smartphoneDAO.updateCountSubtract(smartphone);
+    }
+
+    public boolean updateCountAdd(Smartphone smartphone) {
+        return smartphoneDAO.updateCountAdd(smartphone);
     }
 
     public double getPriceAll(List<Smartphone> smartphoneList) {

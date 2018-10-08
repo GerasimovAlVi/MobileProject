@@ -3,6 +3,7 @@ package controller;
 import pojo.Order;
 import pojo.Smartphone;
 import service.OrderService;
+import service.SmartphoneService;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -15,12 +16,14 @@ import java.util.List;
 public class OrderUserListServlet extends HttpServlet {
     private OrderService orderService;
     private UserService userService;
+    private SmartphoneService smartphoneService;
 
     @Override
     public void init() throws ServletException {
         super.init();
         orderService = new OrderService();
         userService = new UserService();
+        smartphoneService = new SmartphoneService();
     }
 
     @Override
@@ -38,6 +41,10 @@ public class OrderUserListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Order order = orderService.getById(Integer.parseInt(req.getParameter("cancel")));
+        List<Smartphone> smartphoneList = order.getSmartphone();
+        for (Smartphone i : smartphoneList) {
+            smartphoneService.updateCountAdd(i);
+        }
         orderService.updateStatus(order, 3);
         resp.sendRedirect("/user/orderList");
     }

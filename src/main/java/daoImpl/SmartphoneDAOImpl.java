@@ -21,7 +21,7 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
     public boolean add(Smartphone smartphone) {
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "insert into smartphone values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+                     "insert into smartphone values (default, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             preparedStatement.setString(1, smartphone.getName());
             preparedStatement.setDouble(2, smartphone.getPrice());
             preparedStatement.setInt(3, smartphone.getRam());
@@ -36,6 +36,7 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
             preparedStatement.setDouble(12, smartphone.getCameraFront());
             preparedStatement.setInt(13, smartphone.getBrand().getId());
             preparedStatement.setInt(14, smartphone.getScreen().getId());
+            preparedStatement.setInt(15, smartphone.getCount());
             preparedStatement.execute();
             return true;
         } catch (SQLException e) {
@@ -68,13 +69,14 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
                         resultSet.getInt(12),
                         resultSet.getDouble(13),
                         new Brand(
-                                resultSet.getInt(16),
-                                resultSet.getString(17)
+                                resultSet.getInt(17),
+                                resultSet.getString(18)
                         ),
                         new Screen(
-                                resultSet.getInt(18),
-                                resultSet.getString(19)
-                        ));
+                                resultSet.getInt(19),
+                                resultSet.getString(20)
+                        ),
+                        resultSet.getInt(16));
                 return smartphone;
             }
         } catch (SQLException e) {
@@ -89,7 +91,7 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "UPDATE smartphone SET name = ?, price = ?, ram = ?, diagonal = ?, screen_resolution = ?, " +
                              "camera = ?, rom = ?, battery_capacity = ?, size = ?, color = ?, " +
-                             "simcount = ?, camer_front = ?, brand_id = ?, screen_id = ? WHERE id = ?")) {
+                             "simcount = ?, camer_front = ?, brand_id = ?, screen_id = ?, count = ? WHERE id = ?")) {
             preparedStatement.setString(1, smartphone.getName());
             preparedStatement.setDouble(2, smartphone.getPrice());
             preparedStatement.setInt(3, smartphone.getRam());
@@ -104,7 +106,8 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
             preparedStatement.setDouble(12, smartphone.getCameraFront());
             preparedStatement.setInt(13, smartphone.getBrand().getId());
             preparedStatement.setInt(14, smartphone.getScreen().getId());
-            preparedStatement.setInt(15, smartphone.getId());
+            preparedStatement.setInt(15, smartphone.getCount());
+            preparedStatement.setInt(16, smartphone.getId());
             preparedStatement.execute();
             return true;
         } catch (SQLException e) {
@@ -153,18 +156,95 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
                         resultSet.getInt(12),
                         resultSet.getDouble(13),
                         new Brand(
-                                resultSet.getInt(16),
-                                resultSet.getString(17)
+                                resultSet.getInt(17),
+                                resultSet.getString(18)
                         ),
                         new Screen(
-                                resultSet.getInt(18),
-                                resultSet.getString(19)
-                        ));
+                                resultSet.getInt(19),
+                                resultSet.getString(20)
+                        ),
+                        resultSet.getInt(16));
                 list.add(smartphone);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public List<Smartphone> getSmartphoneByBrandIdInStock(Integer id) {
+        List<Smartphone> list = null;
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "select * from (smartphone inner join brand on smartphone.brand_id = brand.id) " +
+                             "inner join screen on smartphone.screen_id = screen.id where brand_id = ? and count <> 0")) {
+            preparedStatement.setInt(1, id);
+            list = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Smartphone smartphone = new Smartphone(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDouble(3),
+                        resultSet.getInt(4),
+                        resultSet.getDouble(5),
+                        resultSet.getString(6),
+                        resultSet.getDouble(7),
+                        resultSet.getInt(8),
+                        resultSet.getInt(9),
+                        resultSet.getString(10),
+                        resultSet.getString(11),
+                        resultSet.getInt(12),
+                        resultSet.getDouble(13),
+                        new Brand(
+                                resultSet.getInt(17),
+                                resultSet.getString(18)
+                        ),
+                        new Screen(
+                                resultSet.getInt(19),
+                                resultSet.getString(20)
+                        ),
+                        resultSet.getInt(16));
+                list.add(smartphone);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public boolean updateCountSubtract(Smartphone smartphone) {
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "UPDATE smartphone SET count = ? WHERE id = ?")) {
+            if (smartphone.getCount() != 0) {
+                preparedStatement.setInt(1, (smartphone.getCount() - 1));
+                preparedStatement.setInt(2, smartphone.getId());
+                preparedStatement.execute();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateCountAdd(Smartphone smartphone) {
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "UPDATE smartphone SET count = ? WHERE id = ?")) {
+            preparedStatement.setInt(1, (smartphone.getCount() + 1));
+            preparedStatement.setInt(2, smartphone.getId());
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

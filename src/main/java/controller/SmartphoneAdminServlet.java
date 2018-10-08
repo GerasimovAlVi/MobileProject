@@ -61,11 +61,13 @@ public class SmartphoneAdminServlet extends HttpServlet {
         int inserSimCount = Integer.parseInt(req.getParameter("inserSimCount"));
         String inserSize = req.getParameter("inserSize");
         String inserColor = req.getParameter("inserColor");
+        int inserCount = Integer.parseInt(req.getParameter("inserCount"));
         Smartphone smartphone = new Smartphone(null, insertName, inserPrace, inserRam, inserDiagonal,
                 inserScreenResolution, inserCamera, inserRom, inserBatteryCapacity,
                 inserSize, inserColor, inserSimCount, inserCameraFront,
                 brandDAO.getByName(inserBrand),
-                screenDAO.getByName(inserScreen));
+                screenDAO.getByName(inserScreen),
+                inserCount);
         if (!smartphone.equals("")) {
             insertSmartphoneService.add(smartphone);
         }

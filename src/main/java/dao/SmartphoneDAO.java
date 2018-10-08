@@ -14,4 +14,10 @@ public interface SmartphoneDAO {
     public boolean deleteById(Integer id);
 
     public List<Smartphone> getSmartphoneByBrandId(Integer id);
+
+    public List<Smartphone> getSmartphoneByBrandIdInStock(Integer id);
+
+    public boolean updateCountSubtract(Smartphone smartphone);
+
+    public boolean updateCountAdd(Smartphone smartphone);
 }

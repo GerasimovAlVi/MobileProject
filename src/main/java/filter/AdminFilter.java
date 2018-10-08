@@ -20,8 +20,6 @@ public class AdminFilter implements Filter {
         HttpSession httpSession = httpServletRequest.getSession();
         if (httpSession.getAttribute("login") != null && httpSession.getAttribute("role").equals("administrator")) {
             chain.doFilter(request, response);
-        } else {
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login?errorCode=accessDenied");
         }
     }
 

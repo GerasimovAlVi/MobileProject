@@ -45,6 +45,7 @@
                 </p>
                 <table>
                     <tr>
+                        <th>Марка</th>
                         <th>Модель</th>
                         <th>Цена, руб</th>
                         <th>Оперативная память, Гб</th>
@@ -65,6 +66,8 @@
                             summ += j.getPrice();
                     %>
                     <tr>
+                        <td align="center"><%=j.getBrand().getName()%>
+                        </td>
                         <td align="center"><%=j.getName()%>
                         </td>
                         <td align="center"><%=j.getPrice()%>
