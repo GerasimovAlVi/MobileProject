@@ -36,6 +36,13 @@ public class OrderAdminListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        Order order = orderService.getById(Integer.parseInt(req.getParameter("status")));
+        String status = req.getParameter("statusList");
+        if (status.equals("paid")) {
+            orderService.updatePaidStatus(order, 1);
+        } else if (status.equals("cancelled")) {
+            orderService.updateStatus(order, 3);
+        }
+        resp.sendRedirect("/admin/orderList");
     }
 }

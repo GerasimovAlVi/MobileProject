@@ -15,22 +15,18 @@
 
 <div class="wrapper">
 
-    <header class="header">
-        <a href="/login">Войти в систему</a><br>
-        <a href="/registration">Регистрация</a>
-    </header><!-- .header-->
+    <header class="header"><a href="/">Главная</a></header><!-- .header-->
 
     <div class="middle">
 
         <div class="container">
             <main class="content">
-                <strong>...</strong>
+
+                <p>Регистрация прошла успешно!</p><br>
+                <a href="/">на главную</a>
+
             </main><!-- .content -->
         </div><!-- .container-->
-
-        <aside class="left-sidebar">
-            <a href="/brand">Телефоны по марке</a>
-        </aside><!-- .left-sidebar -->
 
     </div><!-- .middle-->
 
@@ -42,3 +38,4 @@
 
 </body>
 </html>
+

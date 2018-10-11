@@ -15,11 +15,12 @@ public class PaidTypeDAOImpl implements PaidTypeDAO {
 
     @Override
     public PaidType getById(Integer id) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM paidtype WHERE id = ?")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 PaidType paidType = new PaidType(
                         resultSet.getInt(1),
@@ -28,6 +29,12 @@ public class PaidTypeDAOImpl implements PaidTypeDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

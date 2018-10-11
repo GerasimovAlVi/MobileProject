@@ -15,11 +15,12 @@ public class DeliveryTypeDAOImpl implements DeliveryTypeDAO {
 
     @Override
     public DeliveryType getById(Integer id) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM deliverytype WHERE id = ?")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 DeliveryType deliveryType = new DeliveryType(
                         resultSet.getInt(1),
@@ -28,6 +29,12 @@ public class DeliveryTypeDAOImpl implements DeliveryTypeDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

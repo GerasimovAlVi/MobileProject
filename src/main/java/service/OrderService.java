@@ -3,7 +3,6 @@ package service;
 import dao.OrderDAO;
 import daoImpl.OrderDAOImpl;
 import pojo.Order;
-import pojo.Smartphone;
 import pojo.User;
 
 import java.util.List;
@@ -27,12 +26,12 @@ public class OrderService {
         orderDAO.add(order);
     }
 
-    public List<Smartphone> getAllSmartphone(Order order) {
-        return orderDAO.getAllSmartphone(order);
-    }
-
     public void updateStatus(Order order, Integer newStatus) {
         orderDAO.updateStatus(order, newStatus);
+    }
+
+    public void updatePaidStatus(Order order, Integer newStatus) {
+        orderDAO.updatePaidStatus(order, newStatus);
     }
 
     public Order getById(Integer id) {

@@ -1,7 +1,7 @@
 package pojo;
 
 public class User {
-    private int id;
+    private Integer id;
     private String login;
     private String password;
     private Role role;
@@ -15,7 +15,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String login, String password, Role role, String lastName, String firstName, String phoneNumber, String email, String address, String cardNumber) {
+    public User(Integer id, String login, String password, Role role, String lastName, String firstName, String phoneNumber, String email, String address, String cardNumber) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -28,11 +28,11 @@ public class User {
         this.cardNumber = cardNumber;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

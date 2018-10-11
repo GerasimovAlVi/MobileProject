@@ -140,6 +140,16 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>registration</servlet-name>
+        <servlet-class>controller.RegistrationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+
     <filter>
         <filter-name>adminFilter</filter-name>
         <filter-class>filter.AdminFilter</filter-class>

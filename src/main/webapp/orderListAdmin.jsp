@@ -2,7 +2,6 @@
 <%@ page import="pojo.Smartphone" %>
 <%@ page import="pojo.User" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -111,9 +110,14 @@
                     <%}%>
                     <p>Сумма заказа: <%=summ%>
                     </p>
-                    <form action="/admin/orderList" method="post">
-                        <input type="hidden" name="transform" value="<%=orderList.get(i).getId()%>"/>
-                        <input type="submit" value="изменить">
+                    <form action="/admin/orderList" method="post" accept-charset="UTF-8">
+                        <input type="hidden" name="status" value="<%=orderList.get(i).getId()%>"/>
+                        <select name="statusList">
+                            <option>active</option>
+                            <option>paid</option>
+                            <option>cancelled</option>
+                        </select>
+                        <input type="submit" value="изменить статус заказа">
                     </form>
                 </table>
                 <br><br>

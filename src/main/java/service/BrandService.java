@@ -12,8 +12,4 @@ public class BrandService {
     public List<Brand> getAll() {
         return brandDAO.getAll();
     }
-
-    public Brand getByName(String name) {
-        return brandDAO.getByName(name);
-    }
 }

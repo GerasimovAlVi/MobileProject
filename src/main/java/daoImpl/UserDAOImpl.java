@@ -38,11 +38,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getById(Integer id) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM \"user\" inner join role on \"user\".role_id = role.id WHERE \"user\".id = ?")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 User user = new User(
                         resultSet.getInt(1),
@@ -63,6 +64,12 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -108,11 +115,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getByLogin(String login) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM \"user\" inner join role on \"user\".role_id = role.id WHERE \"user\".login = ?")) {
             preparedStatement.setString(1, login);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 User user = new User(
                         resultSet.getInt(1),
@@ -133,6 +141,12 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

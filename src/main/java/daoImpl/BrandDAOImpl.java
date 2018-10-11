@@ -31,11 +31,12 @@ public class BrandDAOImpl implements BrandDAO {
 
     @Override
     public Brand getById(Integer id) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM brand WHERE id = ?")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Brand brand = new Brand(
                         resultSet.getInt(1),
@@ -44,6 +45,12 @@ public class BrandDAOImpl implements BrandDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -82,9 +89,9 @@ public class BrandDAOImpl implements BrandDAO {
         List<Brand> list = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT * FROM brand")) {
+                     "SELECT * FROM brand");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             list = new ArrayList<>();
-            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Brand brand = new Brand(
                         resultSet.getInt(1),
@@ -99,11 +106,12 @@ public class BrandDAOImpl implements BrandDAO {
 
     @Override
     public Brand getByName(String name) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM brand WHERE name = ?")) {
             preparedStatement.setString(1, name);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Brand brand = new Brand(
                         resultSet.getInt(1),
@@ -112,6 +120,12 @@ public class BrandDAOImpl implements BrandDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

@@ -15,11 +15,12 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     public Role getById(Integer id) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM role WHERE id = ?")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Role role = new Role(
                         resultSet.getInt(1),
@@ -28,6 +29,12 @@ public class RoleDAOImpl implements RoleDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

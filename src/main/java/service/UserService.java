@@ -14,4 +14,8 @@ public class UserService {
     public User getByLogin(String login) {
         return userDAO.getByLogin(login);
     }
+
+    public void add(User user) {
+        userDAO.add(user);
+    }
 }

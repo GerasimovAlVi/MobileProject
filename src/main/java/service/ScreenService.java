@@ -12,8 +12,4 @@ public class ScreenService {
     public List<Screen> getAll() {
         return screenDAO.getAll();
     }
-
-    public Screen getByName(String name) {
-        return screenDAO.getByName(name);
-    }
 }

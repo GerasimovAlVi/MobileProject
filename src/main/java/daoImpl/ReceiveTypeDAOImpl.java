@@ -15,11 +15,12 @@ public class ReceiveTypeDAOImpl implements ReceiveTypeDAO {
 
     @Override
     public ReceiveType getById(Integer id) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT * FROM receivetype WHERE id = ?")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 ReceiveType receiveType = new ReceiveType(
                         resultSet.getInt(1),
@@ -28,6 +29,12 @@ public class ReceiveTypeDAOImpl implements ReceiveTypeDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

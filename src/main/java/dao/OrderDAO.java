@@ -13,6 +13,8 @@ public interface OrderDAO {
 
     public boolean updateStatus(Order order, Integer newStatus);
 
+    public boolean updatePaidStatus(Order order, Integer newStatus);
+
     public boolean deleteById(Integer id);
 
     public List<Order> getAll();

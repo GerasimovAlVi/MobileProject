@@ -47,12 +47,13 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
 
     @Override
     public Smartphone getById(Integer id) {
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from (smartphone inner join brand on smartphone.brand_id = brand.id) " +
                              "inner join screen on smartphone.screen_id = screen.id where smartphone.id = ?")) {
             preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Smartphone smartphone = new Smartphone(
                         resultSet.getInt(1),
@@ -81,6 +82,12 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -133,13 +140,14 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
     @Override
     public List<Smartphone> getSmartphoneByBrandId(Integer id) {
         List<Smartphone> list = null;
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from (smartphone inner join brand on smartphone.brand_id = brand.id) " +
                              "inner join screen on smartphone.screen_id = screen.id where brand_id = ?")) {
             preparedStatement.setInt(1, id);
             list = new ArrayList<>();
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Smartphone smartphone = new Smartphone(
                         resultSet.getInt(1),
@@ -168,6 +176,12 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return list;
     }
@@ -175,13 +189,14 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
     @Override
     public List<Smartphone> getSmartphoneByBrandIdInStock(Integer id) {
         List<Smartphone> list = null;
+        ResultSet resultSet = null;
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "select * from (smartphone inner join brand on smartphone.brand_id = brand.id) " +
                              "inner join screen on smartphone.screen_id = screen.id where brand_id = ? and count <> 0")) {
             preparedStatement.setInt(1, id);
             list = new ArrayList<>();
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Smartphone smartphone = new Smartphone(
                         resultSet.getInt(1),
@@ -210,6 +225,12 @@ public class SmartphoneDAOImpl implements SmartphoneDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return list;
     }
